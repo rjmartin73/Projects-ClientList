@@ -43,7 +43,7 @@
 
             for (i = 4; i < _rowsLength; i++) {
                 _rows[i].parentElement.setAttribute("id", "_row_" + (i - 4));
-                _rowArray.push([i, _rows[i].innerHTML.toLowerCase()]);
+                _rowArray.push([i, _rows[i].innerHTML.toLowerCase(), _rows[i].parentElement.children[1].innerHTML.toLowerCase(), _rows[i].parentElement.children[2].innerHTML.toLowerCase()]);
             }
             for (i = 0; i < 5; i++) {
                 _rowArray.shift();
@@ -54,7 +54,7 @@
 
             _rowArray.find(function (element) {
                 //console.log(element);
-                if (element[1].indexOf(searchTerm) >= 0) {
+                if (element[1].indexOf(searchTerm) >= 0 || element[1].indexOf(searchTerm) >= 0 || element[2].indexOf(searchTerm) >= 0 || element[3].indexOf(searchTerm) >= 0) {
                     newArr.push({ element });
                 }
             });
@@ -75,9 +75,7 @@
                 recCount.innerHTML = "Record Count: " + newArr.length;
             })
         }
-
     </script>
-
     <nav>
         <form id="searchform">
             <input id="searchbox" type="text" placeholder="Search" aria-label="Search" />
