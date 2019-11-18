@@ -41,12 +41,18 @@
             let recCount = document.getElementById("recordcount");
             noRecords.appendChild(noRecordTd);
             noRecordTd.innerHTML = "No records found.";
+            noRecords.setAttribute("id", "norecords");
 
-            for (i = 4; i < _rowsLength; i++) {
-                _rows[i].parentElement.setAttribute("id", "_row_" + (i - 4));
+            if (document.getElementById("norecords") != null) {
+                document.getElementById("norecords").setAttribute("hidden", "hidden");
+            }
+
+            for (i = 0; i < _rowsLength; i++) {
+                _rows[i].parentElement.setAttribute("id", "_row_" + (i));
                 _rowArray.push([i, _rows[i].innerHTML.toLowerCase(),
                     _rows[i].parentElement.children[1].innerHTML.toLowerCase(),
-                    _rows[i].parentElement.children[2].innerHTML.toLowerCase()]);
+                    _rows[i].parentElement.children[2].innerHTML.toLowerCase(),
+                    _rows[i].parentElement.children[3].innerHTML.toLowerCase()]);
             }
             for (i = 0; i < 5; i++) {
                 _rowArray.shift();
@@ -58,12 +64,16 @@
             _rowArray.find(function (element) {
                 //console.log(element);
                 if (element[1].indexOf(searchTerm) >= 0 ||
-                    element[1].indexOf(searchTerm) >= 0 ||
                     element[2].indexOf(searchTerm) >= 0 ||
-                    element[3].indexOf(searchTerm) >= 0) {
+                    element[3].indexOf(searchTerm) >= 0 ||
+                    element[4].indexOf(searchTerm) >= 0
+                ) {
                     newArr.push({ element });
+                    //console.log(element);
                 }
             });
+
+
 
             for (i = 5; i < _rowsLength; i++) {
                 _rows[i].parentElement.setAttribute("hidden", "hidden");
@@ -71,12 +81,18 @@
             console.log(newArr.length);
 
             if (newArr.length == 0) {
-                _rows[0].parentElement.parentElement.appendChild(noRecords);
+                if (document.getElementById("norecords") != null) {
+                    document.getElementById("norecords").removeAttribute("hidden");
+                    document.getElementById("recordcount").setAttribute("hidden", "hidden")
+                } else {
+                    _rows[0].parentElement.parentElement.appendChild(noRecords);
+                }
             }
             newArr.forEach(function (element) {
                 var rownum = element.element[0];
                 _rows[rownum].parentElement.removeAttribute("hidden");
-                recCount.innerHTML = "Record Count: " + newArr.length;
+                recCount.innerHTML = "Records: " + newArr.length;
+                recCount.removeAttribute("hidden");
             })
         }
     </script>
