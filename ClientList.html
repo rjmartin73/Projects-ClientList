@@ -12,30 +12,47 @@
 
 <body>
     <script>
-        var formLoad = () => {
-            var searchBtn = document.getElementById("submit");
-            var searchForm = document.getElementsByTagName("form");
+        const formLoad = () => {
+
+            const searchBtn = document.getElementById("submit");
+            const searchForm = document.getElementsByTagName("form");
+            const searchBox = document.getElementById('searchbox')
 
             searchBtn.addEventListener('click', (event) => {
-                performSearch();
+                event.preventDefault();
+                performSearch(event);
             });
-            searchForm.onsubmit = performSearch();
+
+            searchBox.addEventListener('change', function (event) {
+                searchBox.onchange = performSearch(event);
+            })
+            searchBox.addEventListener('keydown', (event) => {
+                if (event.keyCode === 13) {
+                    performSearch(event)
+                }
+            })
+
+            searchForm.onsubmit = (event) => {
+                event.preventDefault();
+                performSearch(event);
+            }
         };
 
 
         if (document.readyState == 'loading') {
             document.addEventListener('DOMContentLoaded', formLoad)
+
         }
         else {
 
             formLoad();
         }
-        performSearch = () => {
+        performSearch = (e) => {
             event.preventDefault();
             let _rows = document.getElementsByTagName("th");
             let _rowsLength = _rows.length;
             let searchBox = document.getElementById("searchbox");
-            var _rowArray = new Array();
+            let _rowArray = [];
             let noRecords = document.createElement("tr");
             let noRecordTd = document.createElement("td");
             let recCount = document.getElementById("recordcount");
@@ -59,9 +76,9 @@
             }
 
             let searchTerm = searchBox.value.toLowerCase();
-            let newArr = new Array();
+            let newArr = [];
 
-            _rowArray.find(function (element) {
+            _rowArray.find(function (element, index) {
                 //console.log(element);
                 if (element[1].indexOf(searchTerm) >= 0 ||
                     element[2].indexOf(searchTerm) >= 0 ||
@@ -89,11 +106,16 @@
                 }
             }
             newArr.forEach(function (element) {
-                var rownum = element.element[0];
+                let rownum = element.element[0];
                 _rows[rownum].parentElement.removeAttribute("hidden");
                 recCount.innerHTML = "Records: " + newArr.length;
                 recCount.removeAttribute("hidden");
             })
+
+            if (e.which == 13 || e.characterCode == 13 || e.key === "Enter") {
+                e.preventDefault();
+                return false;
+            }
         }
     </script>
     <nav class="navbar navbar navbar-dark bg-dark">
