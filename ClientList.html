@@ -27,6 +27,7 @@
             searchBox.addEventListener('input', function (event) {
                 searchBox.onchange = performSearch(event);
             })
+            
             searchBox.addEventListener('keydown', (event) => {
                 if (event.keyCode === 13) {
                     performSearch(event)
