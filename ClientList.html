@@ -23,7 +23,7 @@
                 performSearch(event);
             });
 
-            searchBox.addEventListener('change', function (event) {
+            searchBox.addEventListener('input', function (event) {
                 searchBox.onchange = performSearch(event);
             })
             searchBox.addEventListener('keydown', (event) => {
