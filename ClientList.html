@@ -1,174 +1,57 @@
+
 <!DOCTYPE html>
+
+
 <html lang="en">
 
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Client List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<meta charset="UTF-8">
+
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0">
+
+	<meta http-equiv="X-UA-Compatible"
+		content="ie=edge">
+
+	<title>Client List</title>
+
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		crossorigin="anonymous">
+
 </head>
 
 <body>
-    <script>
-        const formLoad = () => {
 
-            const searchBtn = document.getElementById("submit");
-            const searchForm = document.getElementsByTagName("form");
-            const searchBox = document.getElementById('searchbox')
+	
 
-            searchBtn.addEventListener('click', (event) => {
-                event.preventDefault();
-                performSearch(event);
-            });
+	<nav class="navbar navbar navbar-dark bg-dark">
 
-            // changes this to a input fired event
-            searchBox.addEventListener('input', function (event) {
-                searchBox.onchange = performSearch(event);
-            })
-            
-            searchBox.addEventListener('keydown', (event) => {
-                if (event.keyCode === 13) {
-                    performSearch(event)
-                }
-            })
+		<form class="form-inline"
+			id="searchform">
+			<input id="searchbox"
+				class="form-control mr-sm-2"
+				type="text"
+				placeholder="Search"
+				aria-label="Search">
 
-            searchForm.onsubmit = (event) => {
-                event.preventDefault();
-                performSearch(event);
-            }
-        };
+			<div id="submit" class="btn btn-outline-info my-2 my-sm-0">Search</div>
+		</form>
+		<div id="recordcount" class="my-2 my-sm-0 text-info" style="align-self:right;">Record Count:</div>
+	</nav>
+	<div class
+			w3-include-html="./assets/data.json" />
 
+	<div class="container mt-5">
 
-        if (document.readyState == 'loading') {
-            document.addEventListener('DOMContentLoaded', formLoad)
+		<!-- START HERE -->
+		
+		<!-- END HERE -->
+	</div>
 
-        }
-        else {
-
-            formLoad();
-        }
-        performSearch = (e) => {
-            event.preventDefault();
-            let _rows = document.getElementsByTagName("th");
-            let _rowsLength = _rows.length;
-            let searchBox = document.getElementById("searchbox");
-            let _rowArray = [];
-            let noRecords = document.createElement("tr");
-            let noRecordTd = document.createElement("td");
-            let recCount = document.getElementById("recordcount");
-            noRecords.appendChild(noRecordTd);
-            noRecordTd.innerHTML = "No records found.";
-            noRecords.setAttribute("id", "norecords");
-
-            if (document.getElementById("norecords") != null) {
-                document.getElementById("norecords").setAttribute("hidden", "hidden");
-            }
-
-            for (i = 0; i < _rowsLength; i++) {
-                _rows[i].parentElement.setAttribute("id", "_row_" + (i));
-                _rowArray.push([i, _rows[i].innerHTML.toLowerCase(),
-                    _rows[i].parentElement.children[1].innerHTML.toLowerCase(),
-                    _rows[i].parentElement.children[2].innerHTML.toLowerCase(),
-                    _rows[i].parentElement.children[3].innerHTML.toLowerCase(),
-                    _rows[i].parentElement.children[5].innerHTML.toLowerCase()]);
-            }
-            for (i = 0; i < 6; i++) {
-                _rowArray.shift();
-            }
-
-            let searchTerm = searchBox.value.toLowerCase();
-            let newArr = [];
-
-            _rowArray.find(function (element, index) {
-                //console.log(element);
-                if (element[1].indexOf(searchTerm) >= 0 ||
-                    element[2].indexOf(searchTerm) >= 0 ||
-                    element[3].indexOf(searchTerm) >= 0 ||
-                    element[4].indexOf(searchTerm) >= 0 ||
-                    element[5].indexOf(searchTerm) >= 0
-                ) {
-                    newArr.push({ element });
-                    //console.log(element);
-                }
-            });
-
-
-
-            for (i = 6; i < _rowsLength; i++) {
-                _rows[i].parentElement.setAttribute("hidden", "hidden");
-            }
-
-            if (newArr.length == 0) {
-                if (document.getElementById("norecords") != null) {
-                    document.getElementById("norecords").removeAttribute("hidden");
-                    document.getElementById("recordcount").setAttribute("hidden", "hidden")
-                } else {
-                    _rows[0].parentElement.parentElement.appendChild(noRecords);
-                }
-            }
-            newArr.forEach(function (element) {
-                let rownum = element.element[0];
-                _rows[rownum].parentElement.removeAttribute("hidden");
-
-                console.log(_rows[rownum].parentElement.children)
-                recCount.innerHTML = "Records: " + newArr.length;
-                recCount.removeAttribute("hidden");
-            })
-
-            if (e.which == 13 || e.characterCode == 13 || e.key === "Enter") {
-                e.preventDefault();
-                return false;
-            }
-        }
-
-        function includeHTML() {
-  var z, i, elmnt, file, xhttp;
-  /* Loop through a collection of all HTML elements: */
-  z = document.getElementsByTagName("*");
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = elmnt.getAttribute("w3-include-html");
-    if (file) {
-      /* Make an HTTP request using the attribute value as the file name: */
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-          /* Remove the attribute, and call this function once more: */
-          elmnt.removeAttribute("w3-include-html");
-          includeHTML();
-        }
-      }
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      /* Exit the function: */
-      return;
-    }
-  }
-}
-    </script>
-    <nav class="navbar navbar navbar-dark bg-dark">
-        <form class="form-inline" id="searchform">
-            <input id="searchbox" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-            <div id="submit" class="btn btn-outline-info my-2 my-sm-0">Search</div>
-        </form>
-        <div id="recordcount" class="my-2 my-sm-0 text-info" style="align-self:right;">Record Count:</div>
-    </nav>
-    <div class="container mt-5">
-
-
-
-            <!-- START HERE -->
-            <div class="" w3-include-html="./assets/clientdata.html"></div>
-            <!-- END HERE -->
-    </div>
-    <script>
-    includeHTML();
-    </script>
+	<script src="./scripts/clientlist.js" ></script>
+	
 </body>
-
 </html>
