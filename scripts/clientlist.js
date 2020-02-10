@@ -191,6 +191,7 @@ function includeHTML() {
 							: item.SqlServer.toLowerCase().indexOf('selfhost') >= 0
 								? ''
 								: url_link.setAttribute('style', 'text-decoration:line-through;');
+						url_link.setAttribute('target','_new')
 						url_link.innerHTML = item.Url;
 						col_version.innerHTML = item.DatabaseVersion;
 
