@@ -180,18 +180,28 @@ function includeHTML() {
 						let col_url = document.createElement('td');
 						let url_link = document.createElement('a');
 						let col_version = document.createElement('td');
+						let link_button = document.createElement('button');
 
 						col_customer_name.innerHTML = item.CustomerName;
 						col_customer_id.innerHTML = item.customerid;
 						col_sql_database.innerHTML = item.SqlDatabase;
 						col_sql_server.innerHTML = item.SqlServer;
+
 						(item.Url.indexOf('www') >= 0 || item.Url.indexOf('http') >= 0) &&
 						item.SqlServer.toLowerCase().indexOf('inactive') == -1
-							? url_link.setAttribute('href', `${item.Url}?domainid=-99&inline=top`)
+							? url_link.setAttribute('href', `${item.Url}?domainid=-99&inline=top`) +
+								url_link.setAttribute('class', 'btn btn-primary btn-sm btn-block') +
+								url_link.setAttribute('type', 'button')
 							: item.SqlServer.toLowerCase().indexOf('selfhost') >= 0
 								? ''
-								: url_link.setAttribute('style',  'filter:blur(1px); color:red;');
-						url_link.innerHTML = item.Url;
+								: url_link.setAttribute('style', 'color:red;');
+						// url_link.innerHTML = item.Url;
+						url_link.innerHTML =
+							item.SqlServer.toLowerCase().indexOf('inactive') == -1 &&
+							item.SqlServer.toLowerCase().indexOf('selfhost') == -1
+								? item.CustomerName.trim()
+								: item.SqlServer.toLowerCase().indexOf('selfhost') == -1 ? 'Inactive' : 'Selfhost';
+
 						col_version.innerHTML = item.DatabaseVersion;
 
 						row.appendChild(col_customer_name);
