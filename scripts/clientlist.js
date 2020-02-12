@@ -190,8 +190,7 @@ function includeHTML() {
 							? url_link.setAttribute('href', `${item.Url}?domainid=-99&inline=top`)
 							: item.SqlServer.toLowerCase().indexOf('selfhost') >= 0
 								? ''
-								: url_link.setAttribute('style', 'text-decoration:line-through;');
-						url_link.setAttribute('target','_new')
+								: url_link.setAttribute('style', 'text-decoration:line-through; filter:blur(1px); color:red;');
 						url_link.innerHTML = item.Url;
 						col_version.innerHTML = item.DatabaseVersion;
 
