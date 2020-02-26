@@ -193,7 +193,7 @@ function includeHTML() {
 						(item.Url.indexOf('www') >= 0 || item.Url.indexOf('http') >= 0) &&
 						item.SqlServer.toLowerCase().indexOf('inactive') == -1
 							? url_link.setAttribute('href', `${item.Url}?domainid=-99&inline=top&username=`) +
-								url_link.setAttribute('class', 'btn btn-outline-primary btn-sm btn-block') +
+								url_link.setAttribute('class', 'btn btn-outline-dark btn-sm btn-block') +
 								url_link.setAttribute('type', 'button') +
 								url_link.setAttribute('target', '_blank')
 							: item.SqlServer.toLowerCase().indexOf('selfhost') >= 0
