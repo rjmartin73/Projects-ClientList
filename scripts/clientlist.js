@@ -25,78 +25,75 @@ const formLoad = () => {
 	};
 };
 
-if (document.readyState == 'loading') {
-	document.addEventListener('DOMContentLoaded', formLoad);
-} else {
-	formLoad();
-}
 performSearch = (e) => {
 	event.preventDefault();
-	let _rows = document.getElementsByTagName('th');
-	let _rowsLength = _rows.length;
+	let records = document.getElementsByTagName('th');
+	let recordCount = records.length;
 	let searchBox = document.getElementById('searchbox');
-	let _rowArray = [];
-	let noRecords = document.createElement('tr');
-	let noRecordTd = document.createElement('td');
-	let recCount = document.getElementById('recordcount');
-	noRecords.appendChild(noRecordTd);
-	noRecordTd.innerHTML = 'No records found.';
-	noRecords.setAttribute('id', 'norecords');
+	let recordArray = [];
+	let noRecordsElement = document.createElement('tr');
+	let noRecordsElement_Child = document.createElement('td');
+	let recordCountElement = document.getElementById('recordcount');
+	noRecordsElement.appendChild(noRecordsElement_Child);
+	noRecordsElement_Child.innerHTML = 'No records found.';
+	noRecordsElement.setAttribute('id', 'norecords');
 
 	if (document.getElementById('norecords') != null) {
 		document.getElementById('norecords').setAttribute('hidden', 'hidden');
 	}
+	let idVal;
 
-	for (i = 0; i < _rowsLength; i++) {
-		_rows[i].parentElement.setAttribute('id', '_row_' + i);
-		_rowArray.push([
+	for (i = 0; i < recordCount; i++) {
+		idVal = records[i].parentElement.getAttribute('key');
+		records[i].parentElement.setAttribute('id', '_row_' + idVal);
+		recordArray.push([
 			i,
-			_rows[i].innerHTML.toLowerCase(),
-			_rows[i].parentElement.children[1].innerHTML.toLowerCase(),
-			_rows[i].parentElement.children[2].innerHTML.toLowerCase(),
-			_rows[i].parentElement.children[3].innerHTML.toLowerCase(),
-			_rows[i].parentElement.children[5].innerHTML.toLowerCase()
+			records[i].innerHTML.toLowerCase(),
+			records[i].parentElement.children[1].innerHTML.toLowerCase(),
+			records[i].parentElement.children[2].innerHTML.toLowerCase(),
+			records[i].parentElement.children[3].innerHTML.toLowerCase(),
+			records[i].parentElement.children[5].innerHTML.toLowerCase()
 		]);
 	}
 	for (i = 0; i < 6; i++) {
-		_rowArray.shift();
+		recordArray.shift();
 	}
 
 	let searchTerm = searchBox.value.toLowerCase();
-	let newArr = [];
+	let filteredRecordArray = [];
 
-	_rowArray.find(function(element, index) {
+	recordArray.find(function(record, index) {
 		//console.log(element);
 		if (
-			element[1].indexOf(searchTerm) >= 0 ||
-			element[2].indexOf(searchTerm) >= 0 ||
-			element[3].indexOf(searchTerm) >= 0 ||
-			element[4].indexOf(searchTerm) >= 0 ||
-			element[5].indexOf(searchTerm) >= 0
+			record[1].indexOf(searchTerm) >= 0 ||
+			record[2].indexOf(searchTerm) >= 0 ||
+			record[3].indexOf(searchTerm) >= 0 ||
+			record[4].indexOf(searchTerm) >= 0 ||
+			record[5].indexOf(searchTerm) >= 0
 		) {
-			newArr.push({ element });
+			filteredRecordArray.push({ record });
 		}
 	});
 
-	for (i = 6; i < _rowsLength; i++) {
-		_rows[i].parentElement.setAttribute('hidden', 'hidden');
+	for (i = 6; i < recordCount; i++) {
+		records[i].parentElement.setAttribute('hidden', 'hidden');
 	}
 
-	if (newArr.length == 0) {
+	if (filteredRecordArray.length == 0) {
 		if (document.getElementById('norecords') != null) {
 			document.getElementById('norecords').removeAttribute('hidden');
 			document.getElementById('recordcount').setAttribute('hidden', 'hidden');
 		} else {
-			_rows[0].parentElement.parentElement.appendChild(noRecords);
+			records[0].parentElement.parentElement.appendChild(noRecordsElement);
 		}
 	}
-	newArr.forEach(function(element) {
-		let rownum = element.element[0];
-		_rows[rownum].parentElement.removeAttribute('hidden');
+	filteredRecordArray.forEach(function(element) {
+		let rownum = element.record[0];
+		records[rownum].parentElement.removeAttribute('hidden');
 
-		console.log(_rows[rownum].parentElement.children);
-		recCount.innerHTML = 'Records: ' + newArr.length;
-		recCount.removeAttribute('hidden');
+		console.log(records[rownum].parentElement.children);
+		recordCountElement.innerHTML = 'Records: ' + filteredRecordArray.length;
+		recordCountElement.removeAttribute('hidden');
 	});
 
 	if (e.which == 13 || e.characterCode == 13 || e.key === 'Enter') {
@@ -119,6 +116,7 @@ function includeHTML() {
 	const sql_database_header = document.createElement('th');
 	const url_header = document.createElement('th');
 	const version_header = document.createElement('th');
+	let clientCount;
 
 	customer_name_header.setAttribute('scope', 'col');
 	customerid_header.setAttribute('scope', 'col');
@@ -163,13 +161,17 @@ function includeHTML() {
 					if (this.status == 404) {
 						elmnt.innerHTML = 'Page not found.';
 					}
+
 					/* Remove the attribute, and call this function once more: */
 					//elmnt.removeAttribute("w3-include-html");
 					//includeHTML();
 				}
+
 				if (client_array[0]) {
-					client_array[0].map((item) => {
+					client_array[0].map((item, index) => {
 						let row = document.createElement('tr');
+						row.setAttribute('key', item.row_num);
+						row.setAttribute('id', '_row_' + item.row_num);
 
 						let col_customer_name = document.createElement('th');
 						col_customer_name.setAttribute('scope', 'row');
@@ -180,18 +182,20 @@ function includeHTML() {
 						let col_url = document.createElement('td');
 						let url_link = document.createElement('a');
 						let col_version = document.createElement('td');
+						col_version.setAttribute('style', 'padding-left:25px !important;');
 						let link_button = document.createElement('button');
 
-						col_customer_name.innerHTML = item.CustomerName;
+						col_customer_name.innerHTML = item.row_num + '. ' + item.CustomerName;
 						col_customer_id.innerHTML = item.customerid;
 						col_sql_database.innerHTML = item.SqlDatabase;
 						col_sql_server.innerHTML = item.SqlServer;
 
 						(item.Url.indexOf('www') >= 0 || item.Url.indexOf('http') >= 0) &&
 						item.SqlServer.toLowerCase().indexOf('inactive') == -1
-							? url_link.setAttribute('href', `${item.Url}?domainid=-99&inline=top`) +
-								url_link.setAttribute('class', 'btn btn-primary btn-sm btn-block') +
-								url_link.setAttribute('type', 'button')
+							? url_link.setAttribute('href', `${item.Url}?domainid=-99&inline=top&username=`) +
+								url_link.setAttribute('class', 'btn btn-outline-primary btn-sm btn-block') +
+								url_link.setAttribute('type', 'button') +
+								url_link.setAttribute('target', '_blank')
 							: item.SqlServer.toLowerCase().indexOf('selfhost') >= 0
 								? ''
 								: url_link.setAttribute('style', 'color:red;');
@@ -213,10 +217,13 @@ function includeHTML() {
 						row.appendChild(col_version);
 
 						table.appendChild(row);
+						clientCount = item.row_num;
+						getInitialCount(clientCount);
 						return;
 					});
 				}
 			};
+
 			container.appendChild(table);
 			xhttp.open('GET', file, true);
 			xhttp.send();
@@ -226,4 +233,16 @@ function includeHTML() {
 	}
 }
 
+if (document.readyState == 'loading') {
+	document.addEventListener('DOMContentLoaded', formLoad);
+} else {
+	formLoad();
+}
+const getInitialCount = (count) => {
+	/// add total record count
+
+	let recordCountElement = document.getElementById('recordcount');
+	recordCountElement.innerHTML = 'Records: ' + count;
+	return;
+};
 includeHTML();
