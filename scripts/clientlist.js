@@ -194,8 +194,8 @@ function includeHTML() {
 						item.SqlServer.toLowerCase().indexOf('inactive') == -1
 							? url_link.setAttribute(
 									'href',
-									item.URL.value.indexOf('?') >= 0
-										? item.url
+									item.Url.value.indexOf('?') >= 0
+										? item.Url
 										: `${item.Url}?domainid=-99&inline=top&username=`
 								) +
 								url_link.setAttribute('class', 'btn btn-outline-dark btn-sm btn-block') +
