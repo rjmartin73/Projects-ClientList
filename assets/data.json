@@ -8630,6 +8630,15 @@
             "SqlDatabase": "YWCARochester_Train",
             "Url": "https:\/\/www.clienttrack.net\/YWCARochester_Train",
             "DatabaseVersion": "15"
+        },
+        {
+            "row_num": 960,
+            "CustomerName": "DEV 19",
+            "customerid": "DEV19",
+            "SqlServer": "SELFHOST",
+            "SqlDatabase": "_CTN_DEV",
+            "Url": "https:\/\/public.dev.dsi.data-systems.com\/19-alpha\/login.aspx?domainid=-99&inline=true&customerid=DSIDEV",
+            "DatabaseVersion": "19.6.0"
         }
     
 ]
