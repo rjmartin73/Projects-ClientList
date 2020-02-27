@@ -8637,7 +8637,7 @@
             "customerid": "DEV19",
             "SqlServer": "SELFHOST",
             "SqlDatabase": "_CTN_DEV",
-            "Url": "https:\/\/public.dev.dsi.data-systems.com\/19-alpha\/login.aspx?domainid=-99&inline=true&customerid=DSIDEV",
+            "Url": "https:\/\/public.dev.dsi.data-systems.com\/19-alpha\/login.aspx?customerid=DSIDEV&domainid=-99&inline=true",
             "DatabaseVersion": "19.6.0"
         }
     
