@@ -146,6 +146,13 @@ function includeHTML() {
 	/* Loop through a collection of all HTML elements: */
 	z = document.getElementsByTagName('*');
 
+	/*
+	Create a SQL connection
+	*/
+
+
+	
+
 	for (i = 0; i < z.length; i++) {
 		elmnt = z[i];
 		/*search for elements with a certain atrribute:*/
