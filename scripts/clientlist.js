@@ -2,6 +2,9 @@ const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
+	const listUpdatedDate = '4/1/2020';
+
+	document.querySelector('#date-updated').innerHTML = "Client list as of <strong>" + listUpdatedDate.toString() + "</strong>" 
 
 	searchBtn.addEventListener('click', (event) => {
 		event.preventDefault();
