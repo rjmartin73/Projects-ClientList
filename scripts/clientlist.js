@@ -95,7 +95,7 @@ performSearch = (e) => {
 		records[rownum].parentElement.removeAttribute('hidden');
 
 		console.log(records[rownum].parentElement.children);
-		recordCountElement.innerHTML = 'Records: ' + filteredRecordArray.length;
+		recordCountElement.innerHTML = 'Built and maintained by Ryan Martin<br/>Records: ' + filteredRecordArray.length;
 		recordCountElement.removeAttribute('hidden');
 	});
 
@@ -257,7 +257,7 @@ const getInitialCount = (count) => {
 	/// add total record count
 
 	let recordCountElement = document.getElementById('recordcount');
-	recordCountElement.innerHTML = 'Records: ' + count;
+	recordCountElement.innerHTML = 'Built and maintained by Ryan Martin<br/>Records: ' + count;
 	return;
 };
 includeHTML();
