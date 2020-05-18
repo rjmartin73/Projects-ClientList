@@ -37,6 +37,29 @@
 			<input id="searchbox" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
 
 			<div id="submit" class="btn btn-outline-light my-2 my-sm-0">Search</div>
+			<div class="ml-5">
+			<select name="ct-version" id="ct_version" onchange="performSearch(click,'version',this.value)">
+				<option value="">Select Version</option>
+				<option value="CT15">ClientTrack&reg; 15</option>
+				<option value="CT18">ClientTrack&reg; 18</option>
+				<option value="CT19">ClientTrack&reg; 19</option>
+				<option value="CT20">ClientTrack&reg; 20</option>
+				<option value="uv">Unsupported Versions</option>
+			</select></div>
+			<div class="ml-5">
+				<select name="sql-server" id="sql_server" onchange="performSearch(click,'server',this.value)">
+					<option value="">Select Server</option>
+					<option value="cl1ag">SQLAO-CL1AG</option>
+					<option value="cl2ag">SQLAO-CL2AG</option>
+					<option value="cl3ag">SQLAO-CL3AG</option>
+					<option value="cl4ag">SQLAO-CL4AG</option>
+					<option value="cl5ag">SQLAO-CL5AG</option>
+					<option value="cl6ag">SQLAO-CL6AG</option>
+					<option value="cl7ag">SQLAO-CL7AG</option>
+					<option value="cl8ag">SQLAO-CL8AG</option>
+					<option value="self">Selfhost</option>
+				</select>
+			</div>
 		</form>
 		<div id="recordcount" class="my-2 my-sm-0 text-light" style="align-self:right;">Built and maintained by Ryan Martin<br/>Record Count:</div>
 
