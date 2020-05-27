@@ -2,7 +2,7 @@ const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
-	const listUpdatedDate = '5/18/2020';
+	const listUpdatedDate = '5/27/2020';
 
 	document.querySelector('#date-updated').innerHTML = "Client list as of <strong>" + listUpdatedDate.toString() + "</strong>" 
 
