@@ -2,7 +2,11 @@ const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
+<<<<<<< HEAD
 	const listUpdatedDate = '7/9/2020';
+=======
+	const listUpdatedDate = '5/27/2020';
+>>>>>>> 7cf8421a826c2113d8444e877b52dcaaf2286ffd
 
 	document.querySelector('#date-updated').innerHTML = "Client list as of <strong>" + listUpdatedDate.toString() + "</strong>" 
 
@@ -28,8 +32,8 @@ const formLoad = () => {
 	};
 };
 
-performSearch = (e) => {
-	event.preventDefault();
+performSearch = (event, select, term) => {
+	//event.preventDefault();
 	let records = document.getElementsByTagName('th');
 	let recordCount = records.length;
 	let searchBox = document.getElementById('searchbox');
@@ -62,7 +66,17 @@ performSearch = (e) => {
 		recordArray.shift();
 	}
 
-	let searchTerm = searchBox.value.toLowerCase();
+	// console.log(select);
+	// console.log(term);
+	let searchTerm;
+
+	if(select == ""||select == undefined){
+		searchTerm = searchBox.value.toLowerCase();
+	} else {
+		searchTerm = term.toLowerCase();
+		console.log("search term: " + searchTerm)
+	}
+
 	let filteredRecordArray = [];
 
 	recordArray.find(function(record, index) {
@@ -94,13 +108,13 @@ performSearch = (e) => {
 		let rownum = element.record[0];
 		records[rownum].parentElement.removeAttribute('hidden');
 
-		console.log(records[rownum].parentElement.children);
+		//console.log(records[rownum].parentElement.children);
 		recordCountElement.innerHTML = 'Built and maintained by Ryan Martin<br/>Records: ' + filteredRecordArray.length;
 		recordCountElement.removeAttribute('hidden');
 	});
 
-	if (e.which == 13 || e.characterCode == 13 || e.key === 'Enter') {
-		e.preventDefault();
+	if (event.which == 13 || event.characterCode == 13 || event.key === 'Enter') {
+		event.preventDefault();
 		return false;
 	}
 };
