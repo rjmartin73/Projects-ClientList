@@ -2,7 +2,7 @@ const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
-	const listUpdatedDate = '11/6/2020';
+	const listUpdatedDate = '12/24/2020';
 
 	document.querySelector('#date-updated').innerHTML = "Client list as of <strong>" + listUpdatedDate.toString() + "</strong>" 
 
@@ -218,7 +218,7 @@ function includeHTML() {
 										? item.Url
 										: `${item.Url}?domainid=-99&inline=top&username=`
 								) +
-								url_link.setAttribute('class', 'btn btn-outline-dark btn-sm btn-block') +
+								url_link.setAttribute('class', 'btn btn-outline-success btn-sm btn-block') +
 								url_link.setAttribute('type', 'button') +
 								url_link.setAttribute('target', '_blank')
 							: item.SqlServer.toLowerCase().indexOf('selfhost') >= 0

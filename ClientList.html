@@ -39,30 +39,47 @@
 
 			<div id="submit" class="btn btn-outline-light my-2 my-sm-0">Search</div>
 			<div class="ml-5">
-			<select name="ct-version" id="ct_version" onchange="performSearch(click,'version',this.value)">
-				<option value="">Select Version</option>
-				<option value="CT15">ClientTrack&reg; 15</option>
-				<option value="CT18">ClientTrack&reg; 18</option>
-				<option value="CT19">ClientTrack&reg; 19</option>
-				<option value="CT20">ClientTrack&reg; 20</option>
-				<option value="uv">Unsupported Versions</option>
-			</select></div>
+				<select name="ct-version" id="ct_version" onchange="performSearch(click,'version',this.value)">
+					<option value="">Select Version</option>
+					<option value="CT15">ClientTrack&reg; 15</option>
+					<option value="CT18">ClientTrack&reg; 18</option>
+					<option value="CT19">ClientTrack&reg; 19</option>
+					<option value="CT20">ClientTrack&reg; 20</option>
+					<option value="uv">Unsupported Versions</option>
+				</select>
+			</div>
 			<div class="ml-5">
 				<select name="sql-server" id="sql_server" onchange="performSearch(click,'server',this.value)">
 					<option value="">Select Server</option>
-					<option value="cl1ag">SQLAO-CL1AG</option>
-					<option value="cl2ag">SQLAO-CL2AG</option>
-					<option value="cl3ag">SQLAO-CL3AG</option>
-					<option value="cl4ag">SQLAO-CL4AG</option>
-					<option value="cl5ag">SQLAO-CL5AG</option>
-					<option value="cl6ag">SQLAO-CL6AG</option>
-					<option value="cl7ag">SQLAO-CL7AG</option>
-					<option value="cl8ag">SQLAO-CL8AG</option>
+					<optgroup label="AOAG">					<option value="sqlao-cl1ag">SQLAO-CL1AG</option>
+					<option value="sqlao-cl2ag">SQLAO-CL2AG</option>
+					<option value="sqlao-cl3ag">SQLAO-CL3AG</option>
+					<option value="sqlao-cl4ag">SQLAO-CL4AG</option>
+					<option value="sqlao-cl5ag">SQLAO-CL5AG</option>
+					<option value="sqlao-cl6ag">SQLAO-CL6AG</option>
+					<option value="sqlao-cl7ag">SQLAO-CL7AG</option>
+					<option value="sqlao-cl8ag">SQLAO-CL8AG</option>
+				</optgroup>
+				<optgroup label="SQLAO">						
+						<option value="SQLAO-CL2-1">SQLAO-CL2-1</option>
+						<option value="sqlao-cl4-1">SQLAO-CL4-1</option>
+						<option value="SQLAO-CL5-2">SQLAO-CL5-2</option>
+						<option value="SQLAO-CL6-1">SQLAO-CL6-1</option>
+				</optgroup>
+				<optgroup label="SQLONB">
+					<option value="sqlonb-cl1ag">SQLONB-CL1AG</option>
+					<option value="SQLONB-01">SQLONB-01</option>
+					<option value="SQLONB-CL1-1">SQLONB-CL1-1</option>
+					<option value="SQLONB-CL1-2">SQLONB-CL1-2</option>
+				</optgroup>
+				<optgroup label="SELFHOST">
 					<option value="self">Selfhost</option>
+				</optgroup>
 				</select>
 			</div>
 		</form>
-		<div id="recordcount" class="my-2 my-sm-0 text-light" style="align-self:right;">Built and maintained by Ryan Martin<br/>Record Count:</div>
+		<div id="recordcount" class="my-2 my-sm-0 text-light" style="align-self:right;">Built and maintained by Ryan
+			Martin<br />Record Count:</div>
 
 	</nav>
 	<div class="container mt-3">
