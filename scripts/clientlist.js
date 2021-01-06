@@ -1,10 +1,13 @@
+const document = new Document();
+
 const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
 	const listUpdatedDate = '12/24/2020';
 
-	document.querySelector('#date-updated').innerHTML = "Client list as of <strong>" + listUpdatedDate.toString() + "</strong>" 
+	document.querySelector('#date-updated').innerHTML =
+		'Client list as of <strong>' + listUpdatedDate.toString() + '</strong>';
 
 	searchBtn.addEventListener('click', (event) => {
 		event.preventDefault();
@@ -66,11 +69,11 @@ performSearch = (event, select, term) => {
 	// console.log(term);
 	let searchTerm;
 
-	if(select == ""||select == undefined){
+	if (select == '' || select == undefined) {
 		searchTerm = searchBox.value.toLowerCase();
 	} else {
 		searchTerm = term.toLowerCase();
-		console.log("search term: " + searchTerm)
+		console.log('search term: ' + searchTerm);
 	}
 
 	let filteredRecordArray = [];
@@ -162,9 +165,6 @@ function includeHTML() {
 	/*
 	Create a SQL connection
 	*/
-
-
-	
 
 	for (i = 0; i < z.length; i++) {
 		elmnt = z[i];
@@ -258,7 +258,7 @@ function includeHTML() {
 	}
 }
 
-if (document.readyState == 'loading') {
+if (document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', formLoad);
 } else {
 	formLoad();
@@ -271,3 +271,5 @@ const getInitialCount = (count) => {
 	return;
 };
 includeHTML();
+
+module.exports = { formLoad() {} };
