@@ -1,3 +1,5 @@
+const { write, writeFile } = require("fs");
+
 const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
@@ -5,8 +7,19 @@ const formLoad = () => {
 	const listUpdatedDate = '1/11/2021';
 	const today = new Date();
 	
+	let dataStr = "";
 
-	document.querySelector('#date-updated').innerHTML = "Client list as of <strong>" + listUpdatedDate.toString() + "</strong>" 
+	let fh=fopen()
+
+
+		$.getJSON('https://ipapi.co/json/', function (data) {
+			dataStr = JSON.stringify(`"${today.toDateString()}","${data.ip}","${data.city},${data.region}"`, null, 2);
+			write('../assets/visitors.txt',dataStr);
+		});
+
+
+	document.querySelector('#date-updated').innerHTML =
+		'Client list as of <strong>' + listUpdatedDate.toString() + '</strong>';
 
 	searchBtn.addEventListener('click', (event) => {
 		event.preventDefault();
@@ -19,6 +32,7 @@ const formLoad = () => {
 	});
 
 	searchBox.addEventListener('keydown', (event) => {
+		//event.preventDefault();
 		if (event.keyCode === 13) {
 			performSearch(event);
 		}
@@ -68,11 +82,11 @@ performSearch = (event, select, term) => {
 	// console.log(term);
 	let searchTerm;
 
-	if(select == ""||select == undefined){
+	if (select == '' || select == undefined) {
 		searchTerm = searchBox.value.toLowerCase();
 	} else {
 		searchTerm = term.toLowerCase();
-		console.log("search term: " + searchTerm)
+		console.log('search term: ' + searchTerm);
 	}
 
 	let filteredRecordArray = [];
@@ -111,7 +125,7 @@ performSearch = (event, select, term) => {
 		recordCountElement.removeAttribute('hidden');
 	});
 
-	if (event.which == 13 || event.characterCode == 13 || event.key === 'Enter') {
+	if (event.which === 13 || event.characterCode === 13 || event.key === 'Enter') {
 		event.preventDefault();
 		return false;
 	}
@@ -164,9 +178,6 @@ function includeHTML() {
 	/*
 	Create a SQL connection
 	*/
-
-
-	
 
 	for (i = 0; i < z.length; i++) {
 		elmnt = z[i];
