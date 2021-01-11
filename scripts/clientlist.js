@@ -1,4 +1,4 @@
-const { write, writeFile } = require("fs");
+//const { write, writeFile } = require("fs");
 
 const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
@@ -14,7 +14,8 @@ const formLoad = () => {
 
 		$.getJSON('https://ipapi.co/json/', function (data) {
 			dataStr = JSON.stringify(`"${today.toDateString()}","${data.ip}","${data.city},${data.region}"`, null, 2);
-			write('../assets/visitors.txt',dataStr);
+			console.log(dataStr);
+			//write('../assets/visitors.txt',dataStr);
 		});
 
 
