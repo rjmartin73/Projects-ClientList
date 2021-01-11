@@ -3,6 +3,8 @@ const formLoad = () => {
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
 	const listUpdatedDate = '1/11/2021';
+	const today = new Date();
+	
 
 	document.querySelector('#date-updated').innerHTML = "Client list as of <strong>" + listUpdatedDate.toString() + "</strong>" 
 
