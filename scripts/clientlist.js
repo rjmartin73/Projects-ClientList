@@ -9,7 +9,7 @@ const formLoad = () => {
 	
 	let dataStr = "";
 
-	let fh=fopen()
+	//let fh=fopen()
 
 
 		$.getJSON('https://ipapi.co/json/', function (data) {
