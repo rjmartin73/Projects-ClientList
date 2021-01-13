@@ -195,6 +195,7 @@ function includeHTML() {
 	}
 	document.querySelector('#navBar').setAttribute('class', `navbar  navbar-dark bg-${todaysColor}`);
 
+	table.setAttribute("class","table table-striped")
 	customer_name_header.setAttribute('scope', 'col');
 	customerid_header.setAttribute('scope', 'col');
 	sql_database_header.setAttribute('scope', 'col');
