@@ -6,18 +6,28 @@ const formLoad = () => {
 	const searchBox = document.getElementById('searchbox');
 	const listUpdatedDate = '1/11/2021';
 	const today = new Date();
-	
-	let dataStr = "";
+	const weekday = today.getDay();
+
+	let dataStr = '';
+	let colorArr = [
+		{ color: 'dark' },
+		{ color: 'primary' },
+		{ color: 'secondary' },
+		{ color: 'information' },
+		{ color: 'warning' },
+		{ color: 'success' },
+		{ color: 'danger' }
+	];
+
+	const todaysColor = colorArr[weekday].color;
 
 	//let fh=fopen()
 
-
-		$.getJSON('https://ipapi.co/json/', function (data) {
-			dataStr = JSON.stringify(`"${today.toDateString()}","${data.ip}","${data.city},${data.region}"`, null, 2);
-			console.log(dataStr);
-			//write('../assets/visitors.txt',dataStr);
-		});
-
+	$.getJSON('https://ipapi.co/json/', function(data) {
+		dataStr = JSON.stringify(`"${today.toDateString()}","${data.ip}","${data.city},${data.region}"`, null, 2);
+		console.log(dataStr);
+		//write('../assets/visitors.txt',dataStr);
+	});
 
 	document.querySelector('#date-updated').innerHTML =
 		'Client list as of <strong>' + listUpdatedDate.toString() + '</strong>';
@@ -148,6 +158,43 @@ function includeHTML() {
 	const version_header = document.createElement('th');
 	let clientCount;
 
+	const today = new Date();
+	const weekday = today.getDay();
+
+	const rand = getRandomInt(0, 8);
+
+	let dataStr = '';
+	let colorArr = [
+		{ color: 'dark' },
+		{ color: 'primary' },
+		{ color: 'secondary' },
+		{ color: 'warning' },
+		{ color: 'info' },
+		{ color: 'success' },
+		{ color: 'danger' },
+		{ color: 'light' }
+	];
+
+	const todaysColor = colorArr[rand].color;
+
+	document.querySelector('#alertBar').setAttribute('class', `alert alert-${todaysColor} alert-dismissible fade show`);
+	switch (rand) {
+		case 3:
+			document.querySelector('#navBar').setAttribute('class', `navbar navbar-light  bg-${todaysColor}`);
+			document.querySelector('#submit').setAttribute('class', `btn btn-outline-dark my-2 my-sm-0`);
+			document.querySelector('#recordcount').setAttribute('class', `my-2 my-sm-0 text-dark`);
+			break;
+		case 7:
+			document.querySelector('#navBar').setAttribute('class', `navbar navbar-light  bg-${todaysColor}`);
+			document.querySelector('#submit').setAttribute('class', `btn btn-outline-dark my-2 my-sm-0`);
+			document.querySelector('#recordcount').setAttribute('class', `my-2 my-sm-0 text-dark`);
+			break;
+		default:
+			document.querySelector('#navBar').setAttribute('class', `navbar  navbar-dark bg-${todaysColor}`);
+			break;
+	}
+	document.querySelector('#navBar').setAttribute('class', `navbar  navbar-dark bg-${todaysColor}`);
+
 	customer_name_header.setAttribute('scope', 'col');
 	customerid_header.setAttribute('scope', 'col');
 	sql_database_header.setAttribute('scope', 'col');
@@ -155,14 +202,14 @@ function includeHTML() {
 	url_header.setAttribute('scope', 'col');
 	version_header.setAttribute('scope', 'col');
 
-	header_row.setAttribute('class', 'alert alert-secondary');
+	header_row.setAttribute('class', `alert alert-${todaysColor}`);
 
-	customer_name_header.innerHTML = 'CustomerName';
-	customerid_header.innerHTML = 'CustomerId';
-	sql_database_header.innerHTML = 'SQLDatabase';
-	sql_server_header.innerHTML = 'SQLServer';
+	customer_name_header.innerHTML = 'Customer Name';
+	customerid_header.innerHTML = 'Customer Id';
+	sql_database_header.innerHTML = 'SQL Database';
+	sql_server_header.innerHTML = 'SQL Server';
 	url_header.innerHTML = 'URL';
-	version_header.innerHTML = 'CTVersion';
+	version_header.innerHTML = 'ClientTrack&reg; Version';
 
 	header_row.appendChild(customer_name_header);
 	header_row.appendChild(customerid_header);
@@ -217,7 +264,7 @@ function includeHTML() {
 						let url_link = document.createElement('a');
 						let col_version = document.createElement('td');
 						col_version.setAttribute('style', 'padding-left:25px !important;');
-						let link_button = document.createElement('button');
+						//let link_button = document.createElement('button');
 
 						col_customer_name.innerHTML = item.row_num + '. ' + item.CustomerName;
 						col_customer_id.innerHTML = item.customerid;
@@ -232,7 +279,10 @@ function includeHTML() {
 										? item.Url
 										: `${item.Url}?domainid=-99&inline=top&username=`
 								) +
-								url_link.setAttribute('class', 'btn btn-outline-success btn-sm btn-block') +
+								url_link.setAttribute(
+									'class',
+									`btn btn-outline-${rand == 7 ? 'dark' : todaysColor} btn-sm btn-block`
+								) +
 								url_link.setAttribute('type', 'button') +
 								url_link.setAttribute('target', '_blank')
 							: item.SqlServer.toLowerCase().indexOf('selfhost') >= 0
@@ -284,4 +334,11 @@ const getInitialCount = (count) => {
 	recordCountElement.innerHTML = 'Built and maintained by Ryan Martin<br/>Records: ' + count;
 	return;
 };
+
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
 includeHTML();
