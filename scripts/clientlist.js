@@ -156,6 +156,7 @@ function includeHTML() {
 	const sql_database_header = document.createElement('th');
 	const url_header = document.createElement('th');
 	const version_header = document.createElement('th');
+	const tbody = document.createElement('tbody');
 	let clientCount;
 
 	const today = new Date();
@@ -195,7 +196,7 @@ function includeHTML() {
 	}
 	document.querySelector('#navBar').setAttribute('class', `navbar  navbar-dark bg-${todaysColor}`);
 
-	table.setAttribute("class","table table-striped")
+	table.setAttribute("class",`table  table-hover`);
 	customer_name_header.setAttribute('scope', 'col');
 	customerid_header.setAttribute('scope', 'col');
 	sql_database_header.setAttribute('scope', 'col');
@@ -306,14 +307,14 @@ function includeHTML() {
 						row.appendChild(col_url);
 						row.appendChild(col_version);
 
-						table.appendChild(row);
+						tbody.appendChild(row);
 						clientCount = item.row_num;
 						getInitialCount(clientCount);
 						return;
 					});
 				}
 			};
-
+			table.appendChild(tbody);
 			container.appendChild(table);
 			xhttp.open('GET', file, true);
 			xhttp.send();
