@@ -4,7 +4,7 @@ const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
-	const listUpdatedDate = '1/11/2021';
+	const listUpdatedDate = '1/27/2021';
 	const today = new Date();
 	const weekday = today.getDay();
 
