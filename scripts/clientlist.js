@@ -4,7 +4,7 @@ const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
-	const listUpdatedDate = '1/27/2021';
+	const listUpdatedDate = '2/17/2021';
 	const today = new Date();
 	const weekday = today.getDay();
 
@@ -196,7 +196,7 @@ function includeHTML() {
 	}
 	document.querySelector('#navBar').setAttribute('class', `navbar  navbar-dark bg-${todaysColor}`);
 
-	table.setAttribute("class",`table  table-hover`);
+	table.setAttribute('class', `table  table-hover`);
 	customer_name_header.setAttribute('scope', 'col');
 	customerid_header.setAttribute('scope', 'col');
 	sql_database_header.setAttribute('scope', 'col');
