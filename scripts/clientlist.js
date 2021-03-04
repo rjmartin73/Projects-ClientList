@@ -1,10 +1,12 @@
 //const { write, writeFile } = require("fs");
 
+//const { response } = require("express");
+
 const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
-	const listUpdatedDate = '2/17/2021';
+	const listUpdatedDate = '3/4/2021';
 	const today = new Date();
 	const weekday = today.getDay();
 
@@ -21,13 +23,41 @@ const formLoad = () => {
 
 	const todaysColor = colorArr[weekday].color;
 
-	//let fh=fopen()
+	let _jsonData = new Object();
+	const uri = 'https://ipapi.co/json/'
 
-	$.getJSON('https://ipapi.co/json/', function(data) {
-		dataStr = JSON.stringify(`"${today.toDateString()}","${data.ip}","${data.city},${data.region}"`, null, 2);
-		console.log(dataStr);
-		//write('../assets/visitors.txt',dataStr);
+	let h = new Headers();
+	h.append('Accept','application/json')
+	
+	let req = new Request(uri,{
+		method:'GET',
+		headers: h,
+		mode: 'cors'
 	});
+
+	 fetch(req)
+	 	.then((response) =>{
+				response.json()
+		 })
+		 .then((jsonData) => {
+					console.log(jsonData)
+		 })
+		 .catch((err)=>{
+			 console.erro(`ERROR: ${err.message}`)
+		 })
+
+
+	// fetch(req)
+	// 	.then(function (response) {
+	// 		response.json().then(jsonData => {
+	// 			console.log(jsonData);
+	// 		});
+	// 	})
+	// 	.catch(function (error) {
+	// 		console.log(error)
+	// 	});
+
+
 
 	document.querySelector('#date-updated').innerHTML =
 		'Client list as of <strong>' + listUpdatedDate.toString() + '</strong>';
@@ -38,7 +68,7 @@ const formLoad = () => {
 	});
 
 	// changes this to a input fired event
-	searchBox.addEventListener('input', function(event) {
+	searchBox.addEventListener('input', function (event) {
 		searchBox.onchange = performSearch(event);
 	});
 
@@ -102,7 +132,7 @@ performSearch = (event, select, term) => {
 
 	let filteredRecordArray = [];
 
-	recordArray.find(function(record, index) {
+	recordArray.find(function (record, index) {
 		//console.log(element);
 		if (
 			record[1].indexOf(searchTerm) >= 0 ||
@@ -127,7 +157,7 @@ performSearch = (event, select, term) => {
 			records[0].parentElement.parentElement.appendChild(noRecordsElement);
 		}
 	}
-	filteredRecordArray.forEach(function(element) {
+	filteredRecordArray.forEach(function (element) {
 		let rownum = element.record[0];
 		records[rownum].parentElement.removeAttribute('hidden');
 
@@ -237,7 +267,7 @@ function includeHTML() {
 			/* Make an HTTP request using the attribute value as the file name: */
 			const xhttp = new XMLHttpRequest();
 
-			xhttp.onreadystatechange = function() {
+			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4) {
 					if (this.status == 200) client_array.push(JSON.parse(this.response));
 
@@ -274,26 +304,26 @@ function includeHTML() {
 						col_sql_server.innerHTML = item.SqlServer;
 
 						(item.Url.indexOf('www') >= 0 || item.Url.indexOf('http') >= 0) &&
-						item.SqlServer.toLowerCase().indexOf('inactive') == -1
+							item.SqlServer.toLowerCase().indexOf('inactive') == -1
 							? url_link.setAttribute(
-									'href',
-									item.Url.indexOf('?') >= 0
-										? item.Url
-										: `${item.Url}?domainid=-99&inline=top&username=`
-								) +
-								url_link.setAttribute(
-									'class',
-									`btn btn-outline-${rand == 7 ? 'dark' : todaysColor} btn-sm btn-block`
-								) +
-								url_link.setAttribute('type', 'button') +
-								url_link.setAttribute('target', '_blank')
+								'href',
+								item.Url.indexOf('?') >= 0
+									? item.Url
+									: `${item.Url}?domainid=-99&inline=top&username=`
+							) +
+							url_link.setAttribute(
+								'class',
+								`btn btn-outline-${rand == 7 ? 'dark' : todaysColor} btn-sm btn-block`
+							) +
+							url_link.setAttribute('type', 'button') +
+							url_link.setAttribute('target', '_blank')
 							: item.SqlServer.toLowerCase().indexOf('selfhost') >= 0
 								? ''
 								: url_link.setAttribute('style', 'color:red;');
 						// url_link.innerHTML = item.Url;
 						url_link.innerHTML =
 							item.SqlServer.toLowerCase().indexOf('inactive') == -1 &&
-							item.SqlServer.toLowerCase().indexOf('selfhost') == -1
+								item.SqlServer.toLowerCase().indexOf('selfhost') == -1
 								? item.CustomerName.trim()
 								: item.SqlServer.toLowerCase().indexOf('selfhost') == -1 ? 'Inactive' : 'Selfhost';
 
