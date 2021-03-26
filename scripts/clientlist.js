@@ -6,7 +6,7 @@ const formLoad = () => {
 	const searchBtn = document.getElementById('submit');
 	const searchForm = document.getElementsByTagName('form');
 	const searchBox = document.getElementById('searchbox');
-	const listUpdatedDate = '3/4/2021';
+	const listUpdatedDate = '3/26/2021';
 	const today = new Date();
 	const weekday = today.getDay();
 
@@ -23,41 +23,52 @@ const formLoad = () => {
 
 	const todaysColor = colorArr[weekday].color;
 
-	let _jsonData = new Object();
+
 	const uri = 'https://ipapi.co/json/'
 
-	let h = new Headers();
-	h.append('Accept','application/json')
-	
-	let req = new Request(uri,{
-		method:'GET',
+	// new Request(uri)
+	// new Request(uri, options)
+	// options -  - method, headers, body, mode
+	// methods: GET, POST, PUT, DELETE,  OPTIONS
+
+	// new Headers()
+	// headers.append(name, value)
+	// Content-Type, Content-Length, Accept, Accept-Language,
+	// X-Request-With, User-Agent
+
+
+var myObj;
+
+let h = new Headers();
+	h.append('Accept', 'application/json')
+
+	let req = new Request(uri, {
+		method: 'GET',
 		headers: h,
 		mode: 'cors'
 	});
 
-	 fetch(req)
-	 	.then((response) =>{
-				response.json()
-		 })
-		 .then((jsonData) => {
-					console.log(jsonData)
-		 })
-		 .catch((err)=>{
-			 console.erro(`ERROR: ${err.message}`)
-		 })
+ function getData() {
+		fetch(req)
+		.then((response) => {
+			if (response.ok) {
+				return response.json();
+			} else {
+				throw new Error('Bad Request');
+			}
+		})
+		.then((jsonData) => {
+			console.log(jsonData)
+			jsonData => myObj = jsonData;
+		})
+		.catch((err) => {
+			console.error(`ERROR: ${err.message}`)
+		})
+	}
 
+	//let myObj =  getData();
 
-	// fetch(req)
-	// 	.then(function (response) {
-	// 		response.json().then(jsonData => {
-	// 			console.log(jsonData);
-	// 		});
-	// 	})
-	// 	.catch(function (error) {
-	// 		console.log(error)
-	// 	});
-
-
+	console.log(myObj);
 
 	document.querySelector('#date-updated').innerHTML =
 		'Client list as of <strong>' + listUpdatedDate.toString() + '</strong>';
