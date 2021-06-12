@@ -124,7 +124,7 @@
     "nodemon": "^2.0.6",
     "nopt": "^1.0.10",
     "normalize-path": "^3.0.0",
-    "normalize-url": "^4.5.0",
+    "normalize-url": "^4.5.1",
     "on-finished": "^2.3.0",
     "on-headers": "^1.0.2",
     "once": "^1.4.0",
